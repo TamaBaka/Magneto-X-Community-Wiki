@@ -1,0 +1,258 @@
+<!--
+title: Hardware
+description: Everything hardware related
+published: true
+date: 2025-03-22T19:57:16.001Z
+tags: rods, rails, motors, enclosure, pi
+editor: ckeditor
+dateCreated: 2025-01-29T21:02:01.853Z
+-->
+
+<h1>Hardware</h1>
+<p>Page is under construction. Categories such as mods, etc. will likely be split out later.</p>
+<h2>Weights</h2>
+<h3>Printer</h3>
+<p>MagnetoX with packaging and palette: &nbsp;………. kg</p>
+<p>MagnetoX without enclosure: …………. kg</p>
+<p>MagnetoX with enclosure: ………… kg</p>
+<h3>Parts</h3>
+<p>Y Mover approx. 323 gramms:</p>
+<p>X Mover approx. 168 gramms:</p>
+<p>Y rail length: 500mm</p>
+<p>X rail length: 400mm</p>
+<h1>Mods</h1>
+<h2>Change from Orange Pi to Raspberry Pi</h2>
+<p>… under construction &nbsp;…</p>
+<h2>Change to Raspberry Pi with Kalico (DangerKlipper), Nitehawk36, BTT eddy or Beacon + dismantle linux hub board and original toolhead board</h2>
+<p><strong>ATTENTION: ONLY FOR EXPERIENCED USER</strong></p>
+<p><strong>ATTENTION: Fast scan with BTT Eddy is <u>not </u>working with Kalico. Probe is working like a touch probe only !!!</strong></p>
+<p>Requirement: You need a working magneto and a good configs before upgrading</p>
+<p>Copy and safe your config!</p>
+<p>/home/pi/printer_data/config</p>
+<h3><strong>Copy and safe Magneto specific files:</strong></h3>
+<p>/home/pi/klipper/klippy/extras/gcode_shell_command.py</p>
+<p>home/pi/klipper/klippy/extras/magneto_load_cell.py</p>
+<p>/home/pi/auto-uuid</p>
+<p>(can be found as well in github repo: <a href="https://github.com/mypeopoly/Klipper/tree/master">https://github.com/mypeopoly/Klipper/tree/master</a>)</p>
+<h3><strong>Steps to install operating System</strong></h3>
+<p>use Raspberry Pi imager</p>
+<p>Select Raspberry Pi OS other --&gt; Raspberry Pi OS lite (64-bit or 32-bit)</p>
+<p>Set network and SSH using pi and raspberry</p>
+<p>Install KIAUH (<a href="https://github.com/dw-0/kiauh">https://github.com/dw-0/kiauh</a>)</p>
+<p>Use V6 !!!</p>
+<p>Change repository to kalico (see <a href="https://github.com/KalicoCrew/kalico">https://github.com/KalicoCrew/kalico</a>), <code>bleeding-edge-v2 </code>as the new branch name&nbsp;</p>
+<p>Install klipper, mainsail, klipperscreen, crowsnest via KIAUH</p>
+<p>Install timelapse</p>
+<p><a href="https://github.com/mainsail-crew/moonraker-timelapse">https://github.com/mainsail-crew/moonraker-timelapse</a></p>
+<p>Install your personal add ons (TMC autotune, Sonar, shaketune, ...)</p>
+<p>For example:</p>
+<p><a href="https://github.com/ArmoredTurtle/AFC-Klipper-Add-On">https://github.com/ArmoredTurtle/AFC-Klipper-Add-On</a></p>
+<p><a href="https://github.com/julianschill/klipper-led_effect">https://github.com/julianschill/klipper-led_effect</a></p>
+<p><a href="https://github.com/andrewmcgr/klipper_tmc_autotune">https://github.com/andrewmcgr/klipper_tmc_autotune</a></p>
+<p><a href="https://github.com/mainsail-crew/sonar">https://github.com/mainsail-crew/sonar</a></p>
+<p><a href="https://github.com/RichardMidnight/pi-safe">https://github.com/RichardMidnight/pi-safe</a></p>
+<p><a href="https://github.com/Frix-x/klippain-shaketune">https://github.com/Frix-x/klippain-shaketune</a></p>
+<h3><strong>To install Beacon</strong></h3>
+<p>cd ~</p>
+<p>git clone <a href="https://github.com/beacon3d/beacon_klipper.git">https://github.com/beacon3d/beacon_klipper.git</a></p>
+<p>./beacon_klipper/install.sh</p>
+<p><strong>Then copy update config to moonraker.conf</strong></p>
+<p>[update_manager beacon]</p>
+<p>type: git_repo</p>
+<p>channel: dev</p>
+<p>path: ~/beacon_klipper</p>
+<p>origin: <a href="https://github.com/beacon3d/beacon_klipper.git">https://github.com/beacon3d/beacon_klipper.git</a></p>
+<p>env: ~/klippy-env/bin/python</p>
+<p>requirements: requirements.txt</p>
+<p>install_script: install.sh</p>
+<p>is_system_service: False</p>
+<p>managed_services: klipper</p>
+<p>info_tags:</p>
+<p>desc=Beacon Surface Scanner</p>
+<p><strong>Steps to install magneto service and other files needed</strong></p>
+<p><strong>Copy back to Raspberry Pi:</strong></p>
+<p><s>/home/pi/klipper/klippy/extras/gcode_shell_command.py </s>--&gt; not necessary,&nbsp;</p>
+<p>Kalico have its own</p>
+<p>home/pi/klipper/klippy/extras/magneto_load_cell.py</p>
+<p>/home/pi/auto-uuid</p>
+<p>home/pi/printer_data/config</p>
+<h3><strong>Create the magneto service file</strong></h3>
+<h4><strong>Steps to install magneto service and other files needed</strong></h4>
+<p><strong>Copy back to Raspberry Pi:</strong></p>
+<p><s>/home/pi/klipper/klippy/extras/gcode_shell_command.py </s>--&gt; not necessary, Kalico have its own</p>
+<p>home/pi/klipper/klippy/extras/magneto_load_cell.py</p>
+<p>/home/pi/auto-uuid</p>
+<p>home/pi/printer_data/config</p>
+<p><strong>Create the magneto service file</strong></p>
+<p>sudo nano /etc/systemd/system/magneto.service</p>
+<p>Copy and paste the text below into the nano editor</p>
+<p>[Unit]</p>
+<p>Description=Magneto Manager Service</p>
+<p>After=network.target</p>
+<p>[Service]</p>
+<p>Type=simple</p>
+<p>User=root</p>
+<p>ExecStart=/bin/bash /home/pi/auto-uuid/magneto-run.sh</p>
+<p>[Install]</p>
+<p>WantedBy=multi-user.target</p>
+<p>&nbsp;</p>
+<p><strong>Install Python-3, Serial and Flask for the service</strong></p>
+<p>sudo apt-get install python3-pip</p>
+<p><s>sudo pip install flask</s></p>
+<p>sudo apt install python3-flask</p>
+<p><s>sudo pip install pyserial</s></p>
+<p>sudo apt install python3-serial&nbsp;</p>
+<p><strong>Change file permissions</strong></p>
+<p>sudo chmod 644 /etc/systemd/system/magneto.service</p>
+<p><strong>As the last step, you need to tell the system that you have added this file and want to enable this service so that it starts at boot</strong></p>
+<p>sudo systemctl daemon-reload</p>
+<p>sudo systemctl enable magneto.service</p>
+<p><strong>change can config (if using CAN):</strong></p>
+<p>sudo nano /etc/network/interfaces.d/can0</p>
+<p>----paste this<br>allow-hotplug can0<br>iface can0 can static<br>bitrate 250000<br>up ifconfig $IFACE txqueuelen 1024<br>pre-up ip link set can0 type can bitrate 250000<br>pre-up ip link set can0 txqueuelen 1024</p>
+<p><strong>For using BTT SKSM:</strong></p>
+<p><a href="https://github.com/bigtreetech/SKSM">https://github.com/bigtreetech/SKSM</a></p>
+<p>Insert the Micro SD card with the OS image into the computer.&nbsp;</p>
+<p>Add the following line to the config.txt file:&nbsp;</p>
+<p>dtoverlay=gpio-shutdown,gpio_pin=21</p>
+<p>Then save and exit.&nbsp;</p>
+<p><strong>ATTENTION: </strong>Wiring PB2 is not necessary</p>
+<p><strong>BTT Octopus firmware (necessary to flash for Kalico):</strong></p>
+<p>→ make menuconfig:</p>
+<p>STMicroelectronics</p>
+<p>STM32H723</p>
+<p>128 kiB Bootloader</p>
+<p>25 MHz crystal clock</p>
+<p>communication interface (USB (on PA11/PA12))</p>
+<p>(x) high precision stepping support&nbsp;</p>
+<p>→ safe and close</p>
+<p>→make clean</p>
+<p>→make</p>
+<p>Firmware is in output directory&nbsp;<code>~/klipper/out</code>.&nbsp;</p>
+<p>Copy klipper.bin to SD card, rename it to firmware.bin, power off, insert card, power on, wait 1 minute, power off, take out SD card, check if file is renamed to firmware.cur</p>
+<p><strong>Install BTT eddy and flash the device according to:</strong></p>
+<p><a href="https://github.com/bigtreetech/Eddy">https://github.com/bigtreetech/Eddy</a></p>
+<p><strong>Wiring USB connection from nitehawk36 to eddy USB:</strong></p>
+<p>I used the original eddy cable, cut it and soldered it to the nitehawk36 USB extension cable.</p>
+<p><strong>Check and update all mcu serial&nbsp;</strong></p>
+<p>with either ls /dev/serial/by-id/*</p>
+<p>or<br>ls /dev/serial/by-path/*</p>
+<p>(by Path can help to avoid timeout / lost communications)</p>
+<p><strong>Config hotend temperature</strong></p>
+<p>Make sure the &lt;pullup_resistor&gt; in [extruder] section is set to 2200 (nitehawk36)</p>
+<p><strong>Magneto toolhead board</strong></p>
+<p>Now we can take out the toolhead board as well. We only need the U, V, W to be connected to the mover board. I soldered the wires directly to the top of the mover board and make a new plug for easier remove. Now 2 cables can be removed from the printer.</p>
+<p>Take care for the wiring and double check it.</p>
+<p><strong><u>IMPORTANT</u></strong></p>
+<p>After doing this mod it is necessary to re-rum the Linear motor host software to re-adjust the controller settings!!!!!</p>
+<p><strong>Filament sensor&nbsp;</strong></p>
+<p>Wiring as follows:</p>
+<p><u>nitehwak36 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Magneto runout sensor</u></p>
+<p>RGB Port 5V &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;VCC</p>
+<p>RGB Port GND &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; GND</p>
+<p>Filament sensor + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Sensor</p>
+<p>&nbsp;</p>
+<p><strong>Danger_Options</strong></p>
+<p>Create a new file “danger_options.cfg”</p>
+<p>Open it and copy/paste the danger options from</p>
+<p><a href="https://docs.kalico.gg/Config_Reference.html#danger-options">https://docs.kalico.gg/Config_Reference.html#danger-options</a></p>
+<p>Read carefully thorugh the options and set whatever you need, e.g. #multi_mcu_trsync_timeout: 0.025 is maybe too small and need to set to e.g. 0.050.</p>
+<p>Save</p>
+<p>Open printer.cfg and include the new file</p>
+<p>[include danger_options.cfg]</p>
+<p><strong>New PID routine</strong></p>
+<p>I am happy with my bed PID but not that much with extruder PID. It overshoots at about 8 to 10°C. Now with KALICO we can use another PID</p>
+<p>change as follows</p>
+<p>[extruder]<br>control = pid_v<br>pid_kp = 17.089<br>pid_ki = 1.238<br>pid_kd = 58.960<br>an re-calibrate with:</p>
+<p>PID_CALIBRATE HEATER=extruder TARGET=250 WRITE_FILE=1 TOLERANCE=0.05</p>
+<p><strong>Extruder stepper motor</strong></p>
+<p>The nitehawk36 board delivers a sense_resistor of 0.100, so change it in your config</p>
+<p><i>[tmc2209 extruder]</i><br><i>uart_pin: nhk:gpio0</i><br><i>interpolate: true</i><br><i>run_current: 1.0 &nbsp; #run and hold current are depending on motor you have</i></p>
+<p><i>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;#Keep it on the original values if you don't change the motor</i></p>
+<p><i>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;#Additional cooling (cooling fan e.g.) is necessary with current higher than 0.7</i><br><i>hold_current: 0.6</i><br><i><strong>sense_resistor: 0.100</strong></i><br><i>stealthchop_threshold: 0</i></p>
+<p><br><strong>Additional cooling fan</strong></p>
+<p>The stands on the magneto toolhead can fit a 40 x 40 cooling fan. It can be wired to nitehawk36 Probe port, using GND and PRB+. Its always on, so a quite fan is recommended (Noctua e.g.). Voltage can be set to 24 or 5V by jumper.</p>
+<p><strong>Disable WIFI power saver</strong></p>
+<p>check status with:</p>
+<p><i>sudo iwconfig wlan0</i></p>
+<p>Disable power saver with</p>
+<p><i>sudo crontab -e</i><br><br># which opens the root crontab in your chosen editor... (or select your editor, usually nano)<br># add the following line at the bottom of the root crontab:<br><br><i>@reboot /usr/sbin/iw wlan0 set power_save off</i><br><br># Save, exit and reboot. Check again with sudo iwconfig wlan0 if it is disabled.</p>
+<p><strong>Spoolman</strong></p>
+<p>Create an entry in moonraker.conf:</p>
+<p>[spoolman]<br>server: http://192.168.xxx.xxx:7912<br># URL to the Spoolman instance. This parameter must be provided.<br>sync_rate: 60<br># The interval, in seconds, between sync requests with the<br># Spoolman server. The default is 5.</p>
+<p>&nbsp;</p>
+<h2>Bowden Tube</h2>
+<p>The positioning of the bowden tube in all versions of the Magneto X can cause issues:</p>
+<ul>
+  <li>For v1.0 and v1.5 printers, it can easily get tangled/block the movement of the extruder.</li>
+  <li>For v2.0 printers, the bowden tube was moved to be incorporated into the cable chain going to the print head but this introduced a lot of friction making it more likely to encounter filament grinding and other issues.</li>
+</ul>
+<p>To fix these issues, there are a few different approaches that can be taken.</p>
+<h3>Before Modifying the Bowden Tube on v2.0 Printers</h3>
+<p>On v2.0 printers, you will want to remove the bowden tube from the cable chain leading to the print head. This can be done in one of two ways:</p>
+<ol>
+  <li>The easiest: Buy a replacement bowden tube and cut the one in the cable chain flush with the cable chain. This leaves the now derelict bowden tube in the cable chain, but you also don't have to remove it from the cable chain which can be a bit finnicky.</li>
+</ol>
+<figure class="image"><img src="/images/hardware/clippedbowdentube.jpg">
+  <figcaption>The two ends of the bowden tube clipped.</figcaption>
+</figure>
+<ol>
+  <li>Carefully remove the bowden tube from the cable chain and reuse it. You will need to do this by removing it from the print head, then removing it from any zip ties and replacing those zip ties if other cables were relying on the zip ties, and then carefully pull it out of the cable chain.</li>
+</ol>
+<figure class="image"><img src="/images/hardware/removebowdentubefromchain.jpg"></figure>
+<h4>Drilling the Acrylic Panels of the Enclosure</h4>
+<p>For some of these mods, you will need to drill a new hole through the enclosure for the bowden tube to enter from or widen an existing hole. Because the panels are acrylic, this can easily cause the panels to chip, crack, or in the worst case, break apart. Some tips to help prevent this are:</p>
+<ul>
+  <li>Use the correct drill bit, most wood and metal drill are not suited for drilling acrylic. That said, if you don't have access to a plastic drill bit, try to use a drill bit that has as much of an angle on it as possible and doesn't have a lip.</li>
+  <li>Put tape on both sides of where you are drilling. This will help reinforce the structural integrity of the acrylic. Even better, if you just got an enclosure, don't remove the film on the panels until you are done drilling as the film is much better than tape at preventing the acrylic from being damaged.</li>
+  <li>Go slowly, especially if you aren't using a drill bit suited for plastic. This will let you shave off a bit of plastic at a time and hopefully not bite into the acrylic too much which can cause cracking.</li>
+  <li>Use a support material below where you are drilling.</li>
+  <li>Use clamps, especially if you aren't using a plastic drill bit. Just don't clamp them too hard as excess pressure can crack the acrylic.</li>
+</ul>
+<p>Realistically, unless you are really good at this, you will probably chip the acrylic at least a little bit if you don't have a plastic drill bit. You can find more information, including videos, on how to drill into acrylic at the <a href="https://www.tapplastics.com/product/supplies_tools/plastic_tools_supplies/tap_plasdrill_bits/161">Tap Plastics page for their plastic drill bits</a>.</p>
+<p>If you do crack or break the acrylic, you can easily fix this with some epoxy. Apply it to both sides of the damaged area/piece. To keep the epoxy as flush to the acrylic as possible, you can use wax paper to sandwich it.</p>
+<h3>Optimal Positioning of the Bowden Tube</h3>
+<ul>
+  <li>If you have vertical space and can move where the roll of filament dispenses from, having the filament from above the printer is ideal</li>
+</ul>
+<figure class="image"><img src="/images/hardware/filamentfromabove.jpg">
+  <figcaption>An example of the filament being fed from above in order to stay out of the way of the toolhead. Source: <a href="https://www.youtube.com/watch?v=mjWHNkiVGoY">Why Linus Tech Tips Can’t Live Without 3D Printing + Studio Tour</a></figcaption>
+</figure>
+<ul>
+  <li>If you don't have vertical space, you want to guide the bowden tube to the center back of the printer before letting it freely go to the print head. This minimized the amount of bowden tube needed.<ul>
+      <li>TODO: Detail this procedure for printers with and without enclosures. In most cases, this will be done using cable ties. Prusa's filament guide is also helpful here, but will need to be modified to clamp onto the Magneto X.<ul>
+          <li>TODO: Get the filament guide model, modify it, then make it available for upload</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<h3>Using a Larger Bowden Tube</h3>
+<p>Because the Magneto X is a direct drive extruder, a larger bowden tube can be used to guide the filament to the extruder. This helps when using high friction filaments. However, the key problem when using a larger diameter bowden tube is that you will still need to step down to 2mm at the extruder.</p>
+<ul>
+  <li>TODO: Instructions, pictures, and links for both adapter types. Also discuss some issues with the bought adapter (it doesn't have a chamfered step down)<ul>
+      <li><a href="https://www.printables.com/model/1012404-ptfe-tube-adapter-6mm-od-to-4mm-od"><u>PTFE Tube Adapter 6mm OD to 4mm OD by ParasitKegel | Download free STL model | Printables.com</u></a></li>
+      <li><a href="https://www.amazon.com/dp/B0D9ZC4R33?ref=ppx_yo2ov_dt_b_fed_asin_title">Amazon.com: Plug-In Reducer, 6mm, TubexPlug-In, Mfr: KQ2R06-04A-A : Industrial &amp; Scientific</a></li>
+    </ul>
+  </li>
+  <li>TODO: When using a larger tube size you'll need custom pneumatic fittings</li>
+</ul>
+<h2>LED Lighting for the Enclosure</h2>
+<p>TODO: Build this out</p>
+<ul>
+  <li><a href="https://www.printables.com/model/924138-peopoly-magneto-x-enclosure-led-lighting-module">Peopoly Magneto X Enclosure LED Lighting Module by KGRIST65 | Download free STL model | Printables.com</a>
+    <ul>
+      <li>The metal pins: <a href="https://www.amazon.com/dp/B00IZFXKRC">Amazon.com: Hillman 44242 3/16 x 1-Inch Metal Dowel Pin, 12-Pack : Industrial &amp; Scientific</a> (detail the specific size so people can search, you don't need exact length, use epoxy to fix everything [System 3 5 minute cure?])</li>
+      <li>The printed model is a very tight fit, will need to install it with the top of the enclosure loosened up</li>
+      <li>Need to buy some longer screws (get size)</li>
+    </ul>
+  </li>
+  <li>The LED strip: <a href="https://www.amazon.com/dp/B0BCTDKV5K">Amazon.com: PAUTIX COB LED Strip Light 16.4ft/5m 2400LEDs White 6000K,CRI93+ Super Bright High Lumen,Dimmable 24V Flexible LED Tape Light with RF Remote,24V 2A/48W Power Supply,for Home&amp;Office DIY Lighting : Home &amp; Kitchen</a>
+    <ul>
+      <li>Big gotcha: If wiring into the board, the number of LEDs will likely draw too much current. Will need to cut the strip up and attach the different pieces to reduce the amount of LEDs being powered</li>
+      <li>If plugging into the wall and using the build in switch, don't need to cut up the strip at all. Make sure to show a picture of how to route the strip around the interior corners without breaking it.</li>
+      <li>Link to Peopoly's guide? They published something about this recently.</li>
+    </ul>
+  </li>
+  <li>Show pictures of installed version</li>
+</ul>
